@@ -83,8 +83,9 @@ Jim Hall <jhall@freedos.org>
 4.2c tom ehlert
 	fixed bugs 1659, 1662, 1663, 1666
 
-4.3 tom ehlert 
-	re-release of fixed version
+4.3 Tom Ehlert
+        fixed bug 1620
 
-4.3a jhall
-	Updated choice.lv from Kristaps
+4.4 Tom Ehlert
+        corrected Dutch language file, solved a KITTEN bug.
+        updated documentation and messages.

@@ -1,4 +1,4 @@
-/* $Id: KITTEN.H,v 1.1 2006-06-08 02:40:12 perditionc Exp $ */
+/* $Id: KITTEN.H,v 1.2 2010-08-21 13:15:14 perditionc Exp $ */
 
 /* Functions that emulate UNIX catgets */
 

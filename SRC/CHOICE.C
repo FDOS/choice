@@ -379,7 +379,7 @@ usage (nl_catd cat)
   cat = cat;
 
   s1 = catgets (cat, 0, 0, "Waits for the user to press a key, from a list of choices");
-  printf ("CHOICE version 4.3, Copyright (C) 1994--2003 Jim Hall, jhall@freedos.org\n");
+  printf ("CHOICE version 4.4, Copyright (C) 1994--2003 Jim Hall, jhall@freedos.org\n");
   printf ("%s\n", s1);
 
   s1 = catgets (cat, 1, 0, "Usage:");
