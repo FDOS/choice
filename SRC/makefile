@@ -18,7 +18,7 @@ CC=tcc
 CFLAGS=-w -M -Z -O -k- -e
 
 
-CFILES=choice.c prf.c talloc.c tcdummy.c
+CFILES=CHOICE.C PRF.C TALLOC.C TCDUMMY.C
 
 # targets:
 
@@ -28,8 +28,8 @@ all: choice.exe
 
 
 
-choice.exe: $(CFILES) kitten.c makefile
-	$(CC) $(CFLAGS)choice $(CFILES) kitten.c
+choice.exe: $(CFILES) KITTEN.C makefile
+	$(CC) $(CFLAGS)choice $(CFILES) KITTEN.C
 	$(UPX) choice.exe
 	$(CC) -DNOCATS $(CFLAGS)_choice $(CFILES)
 	$(UPX) _choice.exe
