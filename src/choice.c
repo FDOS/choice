@@ -46,7 +46,7 @@
 #include <ctype.h>			/* toupper */
 #include <dos.h>
 
-#include "kitten.h"			/* catopen/catgets */
+#include "../kitten/kitten.h"			/* catopen/catgets */
   
 
 
