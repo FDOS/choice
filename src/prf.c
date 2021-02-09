@@ -233,9 +233,10 @@ int do_printf(const char * fmt, va_list arg)
 
       case 'p':
         {
-          unsigned short w0 = va_arg(arg, unsigned short);
+          unsigned short w0 = va_arg(arg, unsigned int);
+          unsigned short w1 = va_arg(arg, unsigned int);
           char *tmp = charp;
-          sprintf(s, "%04x:%04x", va_arg(arg, unsigned short), w0);
+          sprintf(s, "%04x:%04x", w1, w0);
           p = s;
           charp = tmp;
           goto do_outputstring;
