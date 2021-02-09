@@ -26,7 +26,13 @@
 /* Cambridge, MA 02139, USA.                                    */
 /****************************************************************/
 
+#ifndef __GNUC__
 #include <io.h>
+#else
+#define _BORLANDC_SOURCE
+#define far __far
+#endif
+
 #include <conio.h>
 #include <dos.h>
 #include <stdarg.h>
@@ -61,28 +67,22 @@ int fstrlen(char far * s)
   return i;
 }
 
-#ifdef __WATCOMC__
-void writechar(char c);
-#pragma aux writechar = \
-  "mov ah, 2" \
-  "int 0x21" \
-parm [dl];
-#endif
+void writechar(char c)
+{
+  union REGS r;
+
+  r.h.ah = 0x02; /* direct character output */
+  r.h.dl = c;
+  intdos(&r, &r);
+}
 
 void put_console(int c)
 {
   if (c == '\n')
     put_console('\r');
 
-#ifdef __WATCOMC__
-  writechar(c);
-#else
- 
   /* write(1, &c, 1); */             /* write character to stdout */
-  _AH = 0x02;
-  _DL = c;
-  __int__(0x21);
-#endif
+  writechar(c);
 }
 
 /* special handler to switch between sprintf and printf */
@@ -166,7 +166,9 @@ unsigned long far retcs(int i)
 int do_printf(const char * fmt, va_list arg)
 {
   int base;
-  char s[11], far * p;
+  char s[11];
+  char far * p;
+
   int c, flag, size, fill;
   int longarg;
   long currentArg;

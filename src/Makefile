@@ -12,11 +12,11 @@ UPX=upx --8086
 #   or
 #     --best for smallest
 
-choice.exe choice.com: choice.c ../kitten/kitten.c
+choice.exe choice.com: choice.c prf.c ../kitten/kitten.c
 	$(CC) $(CFLAGS)$@ $^ $(LDFLAGS)
 	$(UPX) $@
 
-_choice.exe _choice.com: choice.c
+_choice.exe _choice.com: choice.c prf.c
 	$(CC) $(CFLAGS)$@ $^ $(LDFLAGS)
 	$(UPX) $@
 
