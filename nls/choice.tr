@@ -1,13 +1,13 @@
-0.0:Kullancnn listeden bir se‡im yapmasn bekler
-0.1:se‡enekler
+0.0:KullanÄ±cÄ±nÄ±n listeden bir seÃ§im yapmasÄ±nÄ± bekler
+0.1:seÃ§enekler
 0.2:metin
-0.3:˜zin verilebilir d§meleri belirler. ™ntanml olarak:
-0.4:˜stem sonunda se‡enekleri g”rntleme
-0.5:BšYšK/k‡k harf duyarl ol
-0.6:nn saniye sonra kendili§inden n d§mesini se‡
-0.7:˜stem olarak g”rntlenecek metin
-0.8:˜stemde bir ses (bip) ‡kar
+0.3:Ä°zin verilebilir dÃ¼ÄŸmeleri belirler. Ã–ntanÄ±mlÄ± olarak:
+0.4:Ä°stem sonunda seÃ§enekleri gÃ¶rÃ¼ntÃ¼leme
+0.5:BÃœYÃœK/kÃ¼Ã§Ã¼k harf duyarlÄ± ol
+0.6:nn saniye sonra kendiliÄŸinden n dÃ¼ÄŸmesini seÃ§
+0.7:Ä°stem olarak gÃ¶rÃ¼ntÃ¼lenecek metin
+0.8:Ä°stemde bir ses (bip) Ã§Ä±kar
 3.0:eh
 
-0.9:Ge‡ersiz zaman aŸm s”zdizimi. Beklenen bi‡im Tc,nn veya T:c,nn
-0.10:™ntanml zaman aŸm belirtilen (veya ”ntanml) se‡eneklerde yok
+0.9:GeÃ§ersiz zaman aÅŸÄ±mÄ± sÃ¶zdizimi. Beklenen biÃ§im Tc,nn veya T:c,nn
+0.10:Ã–ntanÄ±mlÄ± zaman aÅŸÄ±mÄ± belirtilen (veya Ã¶ntanÄ±mlÄ±) seÃ§eneklerde yok

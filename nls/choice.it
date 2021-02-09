@@ -12,4 +12,4 @@
 3.0:sn
 
 0.9:Sintassi errata per il timeout. Deve essere nella forma Tc,nn o T:c,nn
-0.10:Il tasto di timeout non Š compreso nei tasti specificati (o nei default)
+0.10:Il tasto di timeout non Ã¨ compreso nei tasti specificati (o nei default)
