@@ -38,6 +38,10 @@
 */	
 
 
+#if defined(__GNUC__)
+#define _BORLANDC_SOURCE
+#define far __far
+#endif
 
 
 #include <stdio.h>
