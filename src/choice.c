@@ -139,13 +139,6 @@ unsigned getch_with_timeout(int timeout_seconds)
     }
 }
 		
-void putch(char c);
-#ifdef __WATCOMC__
-#pragma aux putch = \
-    "mov ah, 2" \
-    "int 0x21" \
-    parm [dl]
-#else
 void putch(char c)
 {
   union REGS r;
@@ -154,7 +147,6 @@ void putch(char c)
   r.h.dl =    c;
   intdos(&r,&r);  
 }
-#endif
 
 int
 main (int argc, char **argv)
