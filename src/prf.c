@@ -321,9 +321,10 @@ int do_printf(const char * fmt, va_list arg)
 
 */
 #include <conio.h>
-void cso(char c)
+#include <string.h>
+void cso(int c)
 {
-  putch(c);
+  writechar(c);
 }
 
 struct {
@@ -398,7 +399,7 @@ struct {
   {
 "ptr 1234:5678", "ptr %p", 0x5678, 0x1234}, 0};
 
-test(char *should, char *format, unsigned lowint, unsigned highint)
+void test(char *should, char *format, unsigned lowint, unsigned highint)
 {
   char b[100];
 
@@ -413,7 +414,7 @@ test(char *should, char *format, unsigned lowint, unsigned highint)
   }
 }
 
-main()
+int main()
 {
   int i;
   printf("hello world\n");
@@ -423,6 +424,7 @@ main()
     test(testarray[i].should, testarray[i].format, testarray[i].lowint,
          testarray[i].highint);
   }
+  return 0;
 }
 #endif
 
