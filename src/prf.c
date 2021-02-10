@@ -52,7 +52,9 @@ static void handle_char(int);
 static void put_console(int);
 static char * ltob(long, char *, int);
 static int do_printf(const char *, register va_list);
-int printf(const char * fmt, ...);
+
+int Xprintf(const char * fmt, ...);
+int Xsprintf(char * buff, const char * fmt, ...);
 
 /* The following is user supplied and must match the following prototype */
 void cso(int);
@@ -134,7 +136,7 @@ char *ltob(long n, char * s, int base)
 #define RIGHT   1
 
 /* printf -- short version of printf to conserve space */
-int printf(const char * fmt, ...)
+int Xprintf(const char * fmt, ...)
 {
   va_list arg;
 
@@ -143,7 +145,7 @@ int printf(const char * fmt, ...)
   return do_printf(fmt, arg);
 }
 
-int sprintf(char * buff, const char * fmt, ...)
+int Xsprintf(char * buff, const char * fmt, ...)
 {
   va_list arg;
 
@@ -236,7 +238,7 @@ int do_printf(const char * fmt, va_list arg)
           unsigned short w0 = va_arg(arg, unsigned int);
           unsigned short w1 = va_arg(arg, unsigned int);
           char *tmp = charp;
-          sprintf(s, "%04x:%04x", w1, w0);
+          Xsprintf(s, "%04x:%04x", w1, w0);
           p = s;
           charp = tmp;
           goto do_outputstring;
@@ -403,13 +405,13 @@ void test(char *should, char *format, unsigned lowint, unsigned highint)
 {
   char b[100];
 
-  sprintf(b, format, lowint, highint);
+  Xsprintf(b, format, lowint, highint);
 
-  printf("'%s' = '%s'\n", should, b);
+  Xprintf("'%s' = '%s'\n", should, b);
 
   if (strcmp(b, should))
   {
-    printf("\nhit the ANYKEY\n");
+    Xprintf("\nhit the ANYKEY\n");
     getch();
   }
 }
@@ -417,7 +419,7 @@ void test(char *should, char *format, unsigned lowint, unsigned highint)
 int main()
 {
   int i;
-  printf("hello world\n");
+  Xprintf("hello world\n");
 
   for (i = 0; testarray[i].should; i++)
   {

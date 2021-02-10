@@ -43,15 +43,23 @@
 #define far __far
 #endif
 
-
+#if 1
+int Xprintf(const char * fmt, ...);
+int Xsprintf(char *, const char * fmt, ...);
+#define PRINTF Xprintf
+#define SPRINTF Xsprintf
+#else
 #include <stdio.h>
+#define PRINTF printf
+#define SPRINTF sprintf
+#endif
+
 #include <stdlib.h>
 #include <string.h>			/* strtok  */
 #include <ctype.h>			/* toupper */
 #include <dos.h>
 
 #include "../kitten/kitten.h"			/* catopen/catgets */
-  
 
 
 /* Symbolic constants */
@@ -59,7 +67,7 @@
 /* #define DEBUG				   debugging   */
 
 #define beep() putch('\a')			/* make a beep */
-/* #define beep() printf("**beep**")		   make a beep */
+/* #define beep() PRINTF("**beep**")		   make a beep */
 
 
 /* Function prototypes */
@@ -104,7 +112,7 @@ int direct_console_input(void)
   r.h.ah = 0x06;	/* direct console input */
   r.h.dl = 0xff;
   intdos(&r,&r);
-  /*printf("al %x flags %x\n",r.h.al,r.x.flags);*/
+  /*PRINTF("al %x flags %x\n",r.h.al,r.x.flags);*/
   if (r.x.flags & ZERO_FLAG) /* no character available */
     return -1;
   return (int)r.h.al;
@@ -166,7 +174,7 @@ main (int argc, char **argv)
   nl_catd cat;				/* language catalog         */
 
 #ifdef DEBUG /* debugging */
-  printf ("Begin\n");
+  PRINTF ("Begin\n");
 #endif /* debugging */
 
   /* Open the message catalog */
@@ -204,7 +212,7 @@ main (int argc, char **argv)
 	  
 	  if (*choices == 0)
 	    {
-	      printf("a valid choice must be given\n");
+	      PRINTF("a valid choice must be given\n");
 	      exit(0);
 	    }  
 	    
@@ -225,7 +233,7 @@ main (int argc, char **argv)
 
       if (s[1] != ',' || !isdigit(s[2]))
       	{
-		  printf ("CHOICE:%s\n",catgets(cat,0,9,"Incorrect timeout syntax.  Expected form Tc,nn or T:c,nn"));
+		  PRINTF ("CHOICE:%s\n",catgets(cat,0,9,"Incorrect timeout syntax.  Expected form Tc,nn or T:c,nn"));
 		  exit (0);
       	}
 	  
@@ -239,7 +247,7 @@ main (int argc, char **argv)
 	    {
 	      if (!isdigit (s[i]))
 		{
-		  printf ("Time to wait is not a number [%s]\n",s+i);
+		  PRINTF ("Time to wait is not a number [%s]\n",s+i);
 		  exit (0);
 		}
 	    }
@@ -247,16 +255,16 @@ main (int argc, char **argv)
 	  def_wait = atoi (s);
 
 #ifdef DEBUG /* debugging */
-	  printf ("/T triggered:\n");
-	  printf ("def_wait=%d\n", def_wait);
-	  printf ("def_key=%c\n", def_key);
+	  PRINTF ("/T triggered:\n");
+	  PRINTF ("def_wait=%d\n", def_wait);
+	  PRINTF ("def_key=%c\n", def_key);
 #endif /* debugging */
 	  break;
 
 	default:
 	  /* show usage, and quit with error */
 	  
-	  printf("unknown argument [%s]\n",argptr);
+	  PRINTF("unknown argument [%s]\n",argptr);
 	
 	case 'H':
 	case '?':  
@@ -274,7 +282,7 @@ main (int argc, char **argv)
     {
       if (!strchr (choices, def_key))
 	{
-		  printf ("CHOICE:%s\n",catgets(cat,0,10,"Timeout default not in specified (or default) choices."));
+		  PRINTF ("CHOICE:%s\n",catgets(cat,0,10,"Timeout default not in specified (or default) choices."));
 		  exit (0);
 	}
     }
@@ -284,16 +292,16 @@ main (int argc, char **argv)
     }
 
 #ifdef DEBUG /* debugging */
-  printf ("After fixup:\n");
-  printf ("def_wait=%d\n", def_wait);
-  printf ("def_key=%c\n", def_key);
+  PRINTF ("After fixup:\n");
+  PRINTF ("def_wait=%d\n", def_wait);
+  PRINTF ("def_key=%c\n", def_key);
 #endif /* debugging */
 
   /* Display text */
   
   for (;opt < argc; opt++)
     {
-      printf("%s%s",argv[opt], opt < argc-1 ? " " : "");
+      PRINTF("%s%s",argv[opt], opt < argc-1 ? " " : "");
     }
   
   
@@ -314,18 +322,18 @@ main (int argc, char **argv)
 
       /* print the choices */
       
-      printf("[");
-      
+      PRINTF("[");
+
       for (s = choices;;)
         {
-      	printf("%c",*s);
-      	s++;
-      	if (*s == 0)
-      		break;
-      	printf(",");
-      	}	
-      
-      printf("]?");
+          PRINTF("%c", *s);
+          s++;
+          if (*s == 0)
+            break;
+          PRINTF(",");
+        }
+
+      PRINTF("]?");
 
     }
 
@@ -351,13 +359,13 @@ main (int argc, char **argv)
 	{
 	  if (key == choices[i])
 	    {
-	      printf ("%c\n",key);		/* force a new line */
+	      PRINTF ("%c\n",key);		/* force a new line */
 	      exit (i+1);		/* exit starts counting at 1 */
 	    }
 
 	  if ((!case_sensitive) && (toupper(key) == toupper(choices[i])))
 	    {
-	      printf ("%c\n",toupper(key));		/* force a new line */
+	      PRINTF ("%c\n",toupper(key));		/* force a new line */
 	      exit (i+1);		/* exit starts counting at 1 */
 	    }
 	} /* for */
@@ -375,35 +383,35 @@ usage (nl_catd cat)
   cat = cat;
 
   s1 = catgets (cat, 0, 0, "Waits for the user to press a key, from a list of choices");
-  printf ("CHOICE version 4.4, Copyright (C) 1994--2003 Jim Hall, jhall@freedos.org\n");
-  printf ("%s\n", s1);
+  PRINTF ("CHOICE version 4.4, Copyright (C) 1994--2003 Jim Hall, jhall@freedos.org\n");
+  PRINTF ("%s\n", s1);
 
   s1 = catgets (cat, 1, 0, "Usage:");
-  printf ("%s ", s1);
+  PRINTF ("%s ", s1);
 
   s1 = catgets (cat, 0, 1, "choices");
   s2 = catgets (cat, 0, 2, "text");
-  printf ("CHOICE [ /B ] [ /C[:]%s ] [ /N ] [ /S ] [ /T[:]c,nn ] [ %s ]\n", s1, s2);
+  PRINTF ("CHOICE [ /B ] [ /C[:]%s ] [ /N ] [ /S ] [ /T[:]c,nn ] [ %s ]\n", s1, s2);
 
   s2 = catgets (cat, 0, 8, "Sound an alert (beep) at prompt");
-  printf ("  /B  -  %s\n", s2);
+  PRINTF ("  /B  -  %s\n", s2);
 
   s2 = catgets (cat, 0, 3, "Specifies allowable keys.  Default is:");
-  printf ("  /C[:]%s  -  %s ", s1, s2);
+  PRINTF ("  /C[:]%s  -  %s ", s1, s2);
 
   s2 = catgets (cat, 3, 0, "yn");
-  printf ("%s\n", s2);
+  PRINTF ("%s\n", s2);
 
   s1 = catgets (cat, 0, 4, "Do not display the choices at end of prompt");
-  printf ("  /N  -  %s\n", s1);
+  PRINTF ("  /N  -  %s\n", s1);
 
   s1 = catgets (cat, 0, 5, "Be case-sensitive");
-  printf ("  /S  -  %s\n", s1);
+  PRINTF ("  /S  -  %s\n", s1);
 
   s1 = catgets (cat, 0, 6, "Automatically choose key c after nn seconds");
-  printf ("  /T[:]c,nn  -  %s\n", s1);
+  PRINTF ("  /T[:]c,nn  -  %s\n", s1);
 
   s1 = catgets (cat, 0, 7, "The text to display as a prompt");
   s2 = catgets (cat, 0, 2, "text");
-  printf ("  %s  -  %s\n", s2, s1);
+  PRINTF ("  %s  -  %s\n", s2, s1);
 }
