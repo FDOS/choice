@@ -1,3 +1,4 @@
+# Language: Swedish (CP850)
 # Translation by Martin Strömberg <ams@ludd.luth.se>
 0.0:Väntar tills användaren trycker på en tangent från en lista av val
 0.1:val

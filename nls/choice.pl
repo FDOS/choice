@@ -1,6 +1,7 @@
-#Translated by Mateusz Viste "Fox" / the.killer@wp.pl
-#Polish diacritics encoded with the MAZOVIA standard
-#
+# Language: Polish (MAZOVIA)
+# Translated by Mateusz Viste
+# Polish letters encoded in the MAZOVIA standard
+
 0.0:Oczekuje na nacižni‘cie jakiegož klawisza z listy wybor¢w
 0.1:wybory
 0.2:tekst
