@@ -1,29 +1,22 @@
-# Minimal Makefile for CHOICE
 
 all: choice.exe
 
-UPX=upx --8086
-# if you don't want to use UPX set
-#     UPX=-rem (DOS)
-#   or
-#     UPX=true (Unix)
-# if you use UPX: then options are
-#     --8086 for 8086 compatibility
-#   or
-#     --best for smallest
+# Watcom has different flag for output file name at compile vs link
+_CFLAGS = $(subst -fe=,-fo=,$(CFLAGS))
 
-choice.exe choice.com: choice.c prf.c ../kitten/kitten.c
-	$(CC) $(CFLAGS)$@ $^ $(LDFLAGS)
-	$(UPX) $@
+kitten.obj: ../kitten/kitten.c
+	$(CC) $(_CFLAGS)$@ -c $^
 
-_choice.exe _choice.com: choice.c prf.c
+tnyprntf.obj: ../tnyprntf/tnyprntf.c
+	$(CC) $(_CFLAGS)$@ -c $^
+
+choice.exe choice.com: choice.c $(EXTRA_OBJS)
 	$(CC) $(CFLAGS)$@ $^ $(LDFLAGS)
-	$(UPX) $@
+	$(UPXARGS) $@
 
 clean:
 	$(RM) choice.exe
 	$(RM) choice.com
-	$(RM) _choice.exe
-	$(RM) _choice.com
 	$(RM) *.o
 	$(RM) *.obj
+	$(RM) *.map
