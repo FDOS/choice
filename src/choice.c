@@ -43,17 +43,6 @@
 #define far __far
 #endif
 
-#if 1
-int Xprintf(const char * fmt, ...);
-int Xsprintf(char *, const char * fmt, ...);
-#define PRINTF Xprintf
-#define SPRINTF Xsprintf
-#else
-#include <stdio.h>
-#define PRINTF printf
-#define SPRINTF sprintf
-#endif
-
 #include <stdlib.h>
 #include <string.h>			/* strtok  */
 #include <ctype.h>			/* toupper */
@@ -61,6 +50,10 @@ int Xsprintf(char *, const char * fmt, ...);
 
 #include "../kitten/kitten.h"			/* catopen/catgets */
 
+#include "../tnyprntf/tnyprntf.h"
+#ifdef NOPRNTF
+#include <stdio.h>
+#endif
 
 /* Symbolic constants */
 
